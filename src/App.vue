@@ -1,13 +1,6 @@
 <template>
   <div>
-
-d
-dd
-
-    ddddd
-
-    dd
-
+    <h1>黑马头条</h1>
   </div>
 
 </template>
