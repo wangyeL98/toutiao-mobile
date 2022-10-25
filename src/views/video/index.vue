@@ -1,12 +1,12 @@
 <template>
-  <div>
-    <router-view></router-view>
+  <div class="video_contain">
+    video
   </div>
 </template>
 
 <script>
 export default {
-  name: 'App'
+  name: 'VideoIndex'
 }
 </script>
 
