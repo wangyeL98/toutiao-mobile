@@ -12,7 +12,12 @@
           <span class="username">{{userInfo.name}}</span>
         </div>
         <div class="fix_right">
-          <van-button round type="default" size="mini" class="change"
+          <van-button
+           round
+           type="default"
+           size="mini"
+           class="change"
+           to="/editor"
             >编辑资料</van-button
           >
         </div>
@@ -80,7 +85,7 @@ export default {
   methods: {
     async getUserInfo () {
       const res = await getData()
-      console.log(res)
+      // console.log(res)
       this.userInfo = res.data.data
     },
     logined () {

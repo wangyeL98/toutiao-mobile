@@ -53,17 +53,23 @@
         <!-- 评论区域 -->
         <Comment
           :articleId="articleId"
-          @allCount="count = $event.total_count"
+          @allCount="count = $event"
           :list="postList"
+          @open="openfn"
         ></Comment>
         <!-- 评论区域 -->
 
         <!-- 底部区域 -->
         <div class="article-bottom">
-          <van-button class="comment-btn" type="default" round size="small" @click="isShow = true"
+          <van-button
+            class="comment-btn"
+            type="default"
+            round
+            size="small"
+            @click="isShow = true"
             >写评论</van-button
           >
-          <van-icon name="comment-o" :badge="count" color="#777" />
+          <van-icon name="comment-o" :badge="count.total_count" color="#777" />
           <!-- 收藏文章 -->
           <Save :articleId="articleId" v-model="detailObj.is_collected"></Save>
           <!-- 点赞文章 -->
@@ -72,13 +78,23 @@
         </div>
         <!-- /底部区域 -->
 
-        <!-- 发布评论 -->
+        <!-- 回复评论 -->
         <van-popup
-          v-model="isShow"
+          v-if="show"
+          v-model="show"
           position="bottom"
-
+          :style="{ height: '90%' }"
         >
-          <PostComment :articleId="articleId" @changeData="chagneFn"></PostComment>
+        <resComment @close="show=false" :item="userInfo" :articleId="articleId"></resComment>
+        </van-popup>
+
+        <!-- 回复评论 -->
+        <!-- 发布评论 -->
+        <van-popup v-model="isShow" position="bottom">
+          <PostComment
+            :articleId="articleId"
+            @changeData="chagneFn"
+          ></PostComment>
         </van-popup>
         <!-- 发布评论 -->
       </div>
@@ -103,6 +119,7 @@
 </template>
 
 <script>
+import resComment from './components/response-comment.vue'
 import Followed from '@/components/follow'
 import { getDetails } from '@/api/details'
 import { ImagePreview } from 'vant'
@@ -112,7 +129,7 @@ import Love from '@/components/love'
 import PostComment from './components/post-comment.vue'
 export default {
   name: 'ArticleIndex',
-  components: { Followed, Save, Love, Comment, PostComment },
+  components: { Followed, Save, Love, Comment, PostComment, resComment },
   props: {
     articleId: {
       type: [Number, String, Object],
@@ -126,7 +143,9 @@ export default {
       statusd: 0,
       count: 0,
       isShow: false,
-      postList: []
+      postList: [],
+      show: false,
+      userInfo: {}
       // sname: 'star-o',
       // gname: 'good-job-o'
     }
@@ -184,8 +203,13 @@ export default {
       })
     },
     chagneFn (data) {
+      this.count.total_count++
       this.isShow = false
       this.postList.unshift(data.new_obj)
+    },
+    openfn (item) {
+      this.show = true
+      this.userInfo = item
     }
   }
 }

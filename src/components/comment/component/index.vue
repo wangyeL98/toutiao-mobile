@@ -25,7 +25,8 @@
         <van-button
           class="reply-btn"
           round
-        >回复 0</van-button>
+          @click="$emit('open',item)"
+        >回复 {{item.reply_count}}</van-button>
       </div>
     </div>
   </van-cell>

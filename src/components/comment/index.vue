@@ -6,11 +6,13 @@
     @load="onLoad"
     :error.sync='error'
     error-text='错误'
+    :immediate-check="false"
   >
     <Comment
       v-for="(item, index) in list"
       :key="index"
       :item="item"
+      @open="$emit('open',$event)"
     ></Comment>
   </van-list>
 </template>
@@ -34,6 +36,7 @@ export default {
     }
   },
   created () {
+    this.loading = true
     this.onLoad()
   },
   props: {
@@ -44,14 +47,18 @@ export default {
     list: {
       type: Array,
       default: () => []
+    },
+    type: {
+      type: String,
+      default: 'a'
     }
   },
   methods: {
     async onLoad () {
       try {
         const { data } = await comment({
-          type: 'a',
-          source: this.articleId,
+          type: this.type,
+          source: this.articleId.toString(),
           offset: this.offset,
           limit: this.limit
         })

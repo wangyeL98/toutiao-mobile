@@ -41,8 +41,8 @@ export default {
   data () {
     return {
       user: {
-        mobile: '13911111111',
-        code: '246810'
+        mobile: '',
+        code: ''
       },
       test: {
         mobile: [
@@ -78,9 +78,9 @@ export default {
         forbidClick: true,
         duration: 0
       })
-      console.log(user)
+      // console.log(user)
       try {
-        const res = await login(this.user)
+        const res = await login(user)
 
         // console.log(res)
 

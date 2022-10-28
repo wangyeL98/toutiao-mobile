@@ -14,6 +14,7 @@
       type="primary"
       size="small"
       @click="post"
+      :disabled='!message.length'
     >发布</van-button>
   </div>
 </template>
@@ -27,6 +28,10 @@ export default {
     articleId: {
       type: [Number, String, Object],
       required: true
+    },
+    art_id: {
+      type: [Number, String, Object],
+      default: null
     }
   },
   data () {
@@ -47,12 +52,13 @@ export default {
       })
       try {
         const { data } = await postComment({
-          target: this.articleId,
+          target: this.articleId.toString(),
           content: this.message,
-          art_id: null
+          art_id: this.art_id
         })
 
         this.message = ''
+        // console.log(data.data)
         this.$emit('changeData', data.data)
         this.$toast.success('发布成功')
       } catch (err) {

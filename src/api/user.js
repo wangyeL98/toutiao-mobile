@@ -74,3 +74,29 @@ export const deLoveArticle = target => {
     method: 'DELETE'
   })
 }
+
+// 获取用户个人信息
+export const getUserInfo = () => {
+  return request({
+    url: '/v1_0/user/profile',
+    method: 'GET'
+  })
+}
+
+// 修改用户资料
+export const fixUserInfo = data => {
+  return request({
+    url: '/v1_0/user/profile',
+    method: 'PATCH',
+    data
+  })
+}
+
+// 修改用户头像
+export const fixUserPhoto = data => {
+  return request({
+    url: '/v1_0/user/photo',
+    method: 'PATCH',
+    data
+  })
+}
