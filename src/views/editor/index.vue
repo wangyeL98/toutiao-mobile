@@ -43,7 +43,7 @@
       v-model="gendershow"
       position="bottom"
     >
-      <FixUsergender @close="gendershow=false" :userList="userList"></FixUsergender>
+      <FixUsergender v-if="gendershow" @close="gendershow=false" :userList="userList"></FixUsergender>
     </van-popup>
     <!-- 修改性别 -->
 
@@ -53,7 +53,7 @@
       v-model="birthdayshow"
       position="bottom"
     >
-      <FixUserbirthday @close="birthdayshow=false" :userList="userList"></FixUserbirthday>
+      <FixUserbirthday v-if="birthdayshow" @close="birthdayshow=false" :userList="userList"></FixUserbirthday>
     </van-popup>
     <!-- 修改出生日期 -->
 
